@@ -1,6 +1,6 @@
 import http from "./http";
 
-interface IFilter{
+export interface IFilter{
     page?: number,
     rpp?: number,
     searchTerm?: string
@@ -16,7 +16,7 @@ class VehicleService{
     private _baseUrl: string = "/vehicles";
 
     find(filter: IFilter){
-        return http.get(this._baseUrl);
+        return http.get(this._baseUrl, {params: filter});
     }
 
     get(id: string){

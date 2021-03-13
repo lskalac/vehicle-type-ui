@@ -9,11 +9,11 @@ class UserService{
     private _baseUrl: string = "/users";
 
     login(user: IUser){
-        return http.put(this._baseUrl);
+        return http.put(this._baseUrl + '/login', user);
     }
 
     register(user: IUser){
-        return http.post(this._baseUrl);
+        return http.post(this._baseUrl + '/register');
     }
 }
 

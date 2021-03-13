@@ -1,14 +1,15 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import VehicleCreate from "./components/VehicleCreate";
-import VehicleList from "./components/VehicleList";
+import { Redirect, Route, Switch } from "react-router-dom";
+import UserLogin from "./components/user/UserLogin";
+import VehicleCreate from "./components/vehicle/VehicleCreate";
+import VehicleList from "./components/vehicle/VehicleList";
 
 const Routes: React.FC = () => (
     <Switch>
+        <Redirect exact from="/" to="/vehicles" />
         <Route path="/vehicles" component={VehicleList} />
         <Route path="/vehicles/add" component={VehicleCreate} />
-        <Route path="/login" component={VehicleList} />
-        <Route path="/register" component={VehicleList} />
+        <Route path="/login" component={UserLogin} />
     </Switch>
 );
 

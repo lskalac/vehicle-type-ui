@@ -1,12 +1,11 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
-import './App.css';
+import Header from './components/common/Header';
 import Routes from './Routes';
 
 const App: React.FC = () => {
     return (
-        <div className="App">
-           Hello
+        <div>
+            <Header />
             <Routes />
         </div>
     );
