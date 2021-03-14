@@ -24,7 +24,7 @@ export default () =>
             authContext.setAuthenticated(true);
             history.push('/vehicles')   
         } catch (error) {
-            console.dir(error.response.data.message);
+            console.dir(error);
         }
     }
 

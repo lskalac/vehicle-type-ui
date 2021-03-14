@@ -19,7 +19,7 @@ export default () =>
             const result = await VehicleService.post(model);
             history.push('/vehicles')   
         } catch (error) {
-            console.dir( error.response.data.message);
+            console.dir(error);
         }
     }
 
