@@ -7,7 +7,7 @@ import VehicleList from "./components/vehicle/VehicleList";
 const Routes: React.FC = () => (
     <Switch>
         <Redirect exact from="/" to="/vehicles" />
-        <Route path="/vehicles" component={VehicleList} />
+        <Route path="/vehicles" exact component={VehicleList} />
         <Route path="/vehicles/add" component={VehicleCreate} />
         <Route path="/login" component={UserLogin} />
     </Switch>

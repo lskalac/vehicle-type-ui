@@ -25,10 +25,10 @@ return (
             </TableHead>
             <TableBody>
                 {rows.map((row) => (
-                    <TableRow key={row.name}>
+                    <TableRow key={row._id}>
                         {
                             Object.entries(row).map(([key, value]) => {
-                                return <TableCell align="left">{value}</TableCell>
+                                return <TableCell key={key} align="left">{value}</TableCell>
                             })
                         }
                     </TableRow>

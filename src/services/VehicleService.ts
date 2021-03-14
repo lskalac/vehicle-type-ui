@@ -1,16 +1,7 @@
+import IFilter from "../types/IFilter";
+import IVehicle from "../types/IVehicle";
 import http from "./http";
-
-export interface IFilter{
-    page?: number,
-    rpp?: number,
-    searchTerm?: string
-}
-
-interface IVehicle{
-    make: string,
-    model: string,
-    year: number
-}
+import UserService from "./UserService";
 
 class VehicleService{
     private _baseUrl: string = "/vehicles";
@@ -20,15 +11,21 @@ class VehicleService{
     }
 
     get(id: string){
-        return http.post(this._baseUrl + '/{id}');
+        return http.post(this._baseUrl + `/${id}`);
     }
 
     delete(id: string){
-        return http.delete(this._baseUrl + '/{id}');
+        return http.delete(this._baseUrl + `/${id}`, {headers: this.getAuthorization()});
     }
 
     post(vehicle: IVehicle){
-        return http.post(this._baseUrl);
+        return http.post(this._baseUrl, vehicle, {headers: this.getAuthorization()});
+    }
+
+    private getAuthorization(){
+        return {
+            'Authorization': `Bearer ${UserService.getToken()}` 
+        };
     }
 }
 
