@@ -1,16 +1,23 @@
-import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import React from "react";
+import DeleteOutlineTwoToneIcon from '@material-ui/icons/DeleteOutlineTwoTone';
 
 interface IDictionary {
     [Key: string]: any;
 }
 
+interface ITableAction{
+    onDelete?: (id: string) => void
+}
+
 interface ITableProps
 {
     columns: string[],
-    rows: IDictionary[]
+    rows: IDictionary[],
+    actions?: ITableAction
 }
 
-export default ({columns, rows}: ITableProps) => {
+export default ({columns, rows, actions}: ITableProps) => {
 return (
     <TableContainer>
         <Table stickyHeader size="small">
@@ -21,6 +28,9 @@ return (
                             <Typography variant="h6">{column}</Typography>
                         </TableCell>
                     ))}
+                    {
+                        actions && actions.onDelete && <TableCell>Actions</TableCell>
+                    }
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -30,6 +40,14 @@ return (
                             Object.entries(row).map(([key, value]) => {
                                 return <TableCell key={key} align="left">{value}</TableCell>
                             })
+                        }
+                        {
+                            actions && actions.onDelete &&
+                            <TableCell>
+                                <IconButton aria-label="Delete" onClick={() => actions.onDelete!(row._id)}>
+                                    <DeleteOutlineTwoToneIcon/>
+                                </IconButton>
+                            </TableCell>
                         }
                     </TableRow>
                 ))}

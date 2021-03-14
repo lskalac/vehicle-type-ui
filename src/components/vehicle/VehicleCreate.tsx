@@ -17,7 +17,6 @@ export default () =>
 
         try {
             const result = await VehicleService.post(model);
-            console.dir(result.data.token);
             history.push('/vehicles')   
         } catch (error) {
             console.dir( error.response.data.message);
@@ -40,7 +39,7 @@ export default () =>
                     <TextField id="model" label="Model" required onChange={e => setModelValue("model", e.target.value)} />
                 </Grid>
                 <Grid xs={12}>
-                    <TextField id="year" label="Year" required type="number" onChange={e => setModelValue("year", e.target.value)} />
+                    <TextField id="year" label="Year" required type="number" onChange={e => setModelValue("year", Number(e.target.value))} />
                 </Grid>
                 <Button variant="contained" color="primary" type="submit"> Submit</Button>
             </form>

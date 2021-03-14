@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, TextField, Typography } from "@material-ui/core";
+import { Box, Button, CircularProgress, IconButton, TextField, Typography } from "@material-ui/core";
 import { useContext, useEffect, useState } from "react";
 import VehicleService from "../../services/VehicleService";
 import IFilter from "../../types/IFilter";
@@ -6,6 +6,7 @@ import Table from "../common/Table";
 import TablePagination from "../common/TablePagination";
 import "./../../styles/style.css";
 import AuthContext from "../../context/Auth";
+import SearchIcon from '@material-ui/icons/Search';
 
 export default () =>
 {
@@ -27,7 +28,7 @@ export default () =>
     
     useEffect(() =>{
         fetchData();
-    }, [params]);
+    }, [params.page]);
 
     const onPageChange = (page: number) => 
     {
@@ -36,7 +37,7 @@ export default () =>
 
     const onSearch = (searchTerm: string) =>
     {
-        setParams(Object.assign({}, params,{searchTerm: searchTerm}));
+        setParams(Object.assign({}, params, {searchTerm: searchTerm}));
     }
 
     const onDelete = async (id: string) =>
@@ -49,6 +50,8 @@ export default () =>
         }
     }
 
+    const actions = Object.assign({}, authContext.authenticated ? { onDelete: onDelete} : {});
+
     return(
         <div>
                  
@@ -56,10 +59,15 @@ export default () =>
                 <div>
                     <Typography variant="h5"> Vehicles</Typography>
                     <Box display="flex" justifyContent="space-between">
-                        <TextField id="standard-search" label="Search field" type="search" onChange={e => onSearch(e.target.value)} />
+                        <Box>
+                            <TextField id="standard-search" label="Search field" type="search" value={params.searchTerm} onChange={e => onSearch(e.target.value)} />
+                            <IconButton onClick={() => {fetchData()}}>
+                                <SearchIcon />
+                            </IconButton>
+                        </Box>
                         {authContext.authenticated && <Button variant="outlined" color="primary" href="/vehicles/add">Add new</Button>}
                     </Box>
-                    <Table columns={columns} rows={data!}/>
+                    <Table columns={columns} rows={data!} actions={actions} />
                     <TablePagination page={params.page! - 1} rpp={10} count={total} onChange={onPageChange} />
                 </div> :  <CircularProgress className="loader" color="secondary" />
             }
