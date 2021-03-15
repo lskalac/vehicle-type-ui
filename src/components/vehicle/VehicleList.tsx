@@ -7,6 +7,7 @@ import TablePagination from "../common/TablePagination";
 import "./../../styles/style.css";
 import AuthContext from "../../context/Auth";
 import SearchIcon from '@material-ui/icons/Search';
+import IVehicle from "../../types/IVehicle";
 
 export default () =>
 {
@@ -21,7 +22,14 @@ export default () =>
     {
         setLoading(true);
         let response = await VehicleService.find(params);
-        setData(response.data.items);
+        setData(response.data.items.map((x: any) => {
+            return {
+                id: x._id,
+                make: x.make,
+                model: x.vmodel || x.model,
+                year: x.year
+            };
+        }));
         setTotal(response.data.total);
         setLoading(false);
     }
