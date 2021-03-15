@@ -35,7 +35,7 @@ return (
             </TableHead>
             <TableBody>
                 {rows.map((row) => (
-                    <TableRow key={row._id}>
+                    <TableRow key={row.id}>
                         {
                             Object.entries(row).map(([key, value]) => {
                                 return <TableCell key={key} align="left">{value}</TableCell>
@@ -44,7 +44,7 @@ return (
                         {
                             actions && actions.onDelete &&
                             <TableCell>
-                                <IconButton aria-label="Delete" onClick={() => actions.onDelete!(row._id)}>
+                                <IconButton aria-label="Delete" onClick={() => actions.onDelete!(row.id)}>
                                     <DeleteOutlineTwoToneIcon/>
                                 </IconButton>
                             </TableCell>
