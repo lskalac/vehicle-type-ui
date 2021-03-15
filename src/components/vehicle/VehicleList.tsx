@@ -61,7 +61,7 @@ export default () =>
                     <Box display="flex" justifyContent="space-between">
                         <Box>
                             <TextField id="standard-search" label="Search field" type="search" value={params.searchTerm} onChange={e => onSearch(e.target.value)} />
-                            <IconButton onClick={() => {fetchData()}}>
+                            <IconButton aria-label="Search" onClick={() => {fetchData()}}>
                                 <SearchIcon />
                             </IconButton>
                         </Box>
